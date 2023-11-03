@@ -6,7 +6,9 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 import router from "./router";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 app.use(
@@ -24,13 +26,8 @@ server.listen(8000, () => {
   console.log(`server running on port 8000`);
 });
 
-const MONGO_URL =
-  "mongodb+srv://admin:JNBrY7XVX0Ru3Bc2@cluster0.rnoi4uf.mongodb.net/?retryWrites=true&w=majority";
-
-// JNBrY7XVX0Ru3Bc2
-
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
+mongoose.connect(process.env.MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
 app.use("/", router());
